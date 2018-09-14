@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row wrap>
             <v-flex xs12>
-                <v-card>
+                <v-card class="primary">
                     <v-card-title>
                         <h2 class="primary--text">{{ meetup.title }}</h2>
                     </v-card-title>
@@ -11,7 +11,7 @@
                         aspect-ratio="1.8" 
                     ></v-img>
                     <v-card-text>
-                        <div class="mb-1"> <h3 class="info--text"> {{ meetup.date }} - {{meetup.location}}</h3> </div>
+                        <div class="mb-1"> <h3 class="info--text"> {{ meetup.date | datify }} - {{meetup.location}}</h3> </div>
                         <div>{{ meetup.description }}</div>
                     </v-card-text>
                     <v-card-actions>

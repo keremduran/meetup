@@ -2,7 +2,7 @@
     <v-container fluid>
         <v-layout row wrap>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2 >
-                <v-card class="info mb-3" v-for="meetup in meetups" :key="meetup.id">
+                <v-card class="info mb-3 secondary" v-for="meetup in meetups" :key="meetup.id">
                     <v-container fluid>
                         <v-layout row>
                             <v-flex xs5 sm4>
@@ -15,7 +15,7 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h2 class="black--text mb-0">{{ meetup.title }}</h2>
-                                        <div>{{ meetup.date }}</div>
+                                        <div>{{ meetup.date | datify }} - {{ meetup.location }}</div>
                                     </div>
                                 </v-card-title>
                                 <v-card-actions>
@@ -42,4 +42,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .secondary {
+        background: #d5f0ff !important;
+    }
+</style>
+
 

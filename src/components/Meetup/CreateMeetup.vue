@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row class="mb-2">
             <v-flex xs12 sm6 offset-sm3>
-                <h2 class="secondary--text">Create a New Meetup</h2>
+                <h2 class="primary--text text-xs-center">Create a New Meetup</h2>
             </v-flex>
         </v-layout>
         <v-form @submit.prevent="onCreateMeetup">
@@ -59,21 +59,51 @@
             </v-layout>
             <v-layout row>
                 <v-flex class="my-2" xs12 sm6 offset-sm3>
-                    <h2 class="text--secondary text-xs-center">Choose a Date & Time</h2>
+                    <h3 class="primary--text text-xs-center">Choose a Date & Time</h3>
                 </v-flex>
             </v-layout>
             <v-layout row> <!-- To center the date pickers -->
                 <v-flex xs12 sm6 offset-sm3>
                     <v-layout row>
-                        <v-flex class="mb-1" xs12 sm6>
-                            <v-date-picker v-model="date"></v-date-picker>
-                            <p class="text-xs-center">{{ date }}</p>                   
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row>
-                        <v-flex class="mb-1" xs12 sm6>
-                            <v-time-picker v-model="time" format="24hr"></v-time-picker>
-                            <p class="text-xs-center">{{ time }}</p>
+                        <v-flex class="mb-1" xs12>
+                            <v-menu
+                                ref="menu"
+                                :close-on-content-click="false"
+                                v-model="menu"
+                                lazy
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                min-width="290px"
+                            >
+                                <v-text-field
+                                    slot="activator"
+                                    label="Date"
+                                    prepend-icon="event"
+                                    readonly
+                                    :value="getDate"
+                                ></v-text-field>
+                                <v-date-picker v-model="date"></v-date-picker>
+                            </v-menu>  
+                            <v-menu
+                                ref="menu"
+                                :close-on-content-click="false"
+                                v-model="menu2"
+                                lazy
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                min-width="290px"
+                            >
+                                <v-text-field
+                                    slot="activator"
+                                    label="Time"
+                                    prepend-icon="event"
+                                    readonly
+                                    :value="getTime"
+                                ></v-text-field>
+                                <v-time-picker v-model="time" format="24hr"></v-time-picker>
+                            </v-menu>                                                 
                         </v-flex>
                     </v-layout>
                 </v-flex>           
@@ -85,10 +115,6 @@
                     class="primary">
                         Create Meetup
                     </v-btn>
-                    <v-btn class="primary">
-                        Clear
-                    </v-btn>                
-                    <p>{{parsedDateTime}}</p>
                 </v-flex>
             </v-layout>
         </v-form>
@@ -103,8 +129,10 @@ export default {
             location: '',
             imageUrl: '',
             description: '',             
-            date: null,              
-            time: new Date(),          
+            date: null,            
+            time: new Date(),   
+            menu: false,
+            menu2: false       
         }
     },
     computed: {
@@ -137,13 +165,39 @@ export default {
             console.log(date);
             return date;
         },
+        getDate() {
+            let date, year
+            if (!this.date) {
+                date = new Date()
+            } else {
+                date = new Date(this.date)                       
+                date.setDate(date.getUTCDate())             
+            }  
+            date = date.toString().substring(0,15)
+            return date
+        },
+        getTime() {
+            let time, hours, minutes
+            if(typeof this.time === 'string'){
+                hours = this.time.match(/^(\d+)/)[1]
+                minutes = this.time.match(/:(\d+)/)[1]
+                time = hours+":"+minutes
+            } else {
+                hours = this.time.getHours()             
+                minutes = this.time.getMinutes()
+                if (hours < 10) {
+                    hours = "0"+hours
+                } else if (minutes < 10) {
+                    minutes = "0"+minutes
+                }
+            }
+            time = hours+":"+minutes
+            return time
+        },
     },
 
 
     methods: {
-        clear(){
-            this.$refs.form.reset();
-        },
         onCreateMeetup () {
             if(!this.formIsValid){
                 return

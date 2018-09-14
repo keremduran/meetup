@@ -24,7 +24,7 @@
       </v-toolbar-side-icon>   
       <v-toolbar-title>
         <router-link to="/" tag="span" style="curl" :style="{cursor: 'pointer'}">
-          Meetup
+          <i class="">TeamUp</i>
         </router-link>
       </v-toolbar-title>             
       <v-spacer></v-spacer>    
@@ -51,7 +51,7 @@ export default {
     return {
       sideNav: false,
       menuItems: [
-        {icon: 'supervisor_account', title: 'View Meetups', link:'/meetups'},
+        {icon: 'supervisor_account', title: 'Explore Meetups', link:'/meetups'},
         {icon: 'room', title: 'Organize Meetup', link:'/meetup/new'},
         {icon: 'person', title: 'Profile', link:'/profile'},
         {icon: 'face', title: 'Sign Up', link:'/signup'},
