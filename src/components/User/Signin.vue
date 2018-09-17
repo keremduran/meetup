@@ -34,7 +34,7 @@
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit">
+                                        <v-btn type="submit" :loading="loading">
                                             Sign In
                                         </v-btn>
                                     </v-flex>
@@ -59,6 +59,9 @@ export default {
     computed: {
         user () {
             return this.$store.getters.user
+        },
+        loading () {
+            return this.$store.getters.loading
         }
     },
     watch: {

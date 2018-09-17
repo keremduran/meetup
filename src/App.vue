@@ -49,28 +49,35 @@
 export default {
   data() {
     return {
-      sideNav: false,
+      sideNav: false
     };
   },
   name: "App",
   computed: {
-    menuItems () {
+    menuItems() {
       let menuItems = [
         { icon: "face", title: "Sign Up", link: "/signup" },
         { icon: "lock_open", title: "Sign In", link: "/signin" }
-      ]
+      ];
       if (this.userSignedIn) {
         menuItems = [
-          { icon: "supervisor_account", title: "Explore Meetups", link: "/meetups"},
+          {
+            icon: "supervisor_account",
+            title: "Explore Meetups",
+            link: "/meetups"
+          },
           { icon: "room", title: "Organize Meetup", link: "/meetup/new" },
-          { icon: "person", title: "Profile", link: "/profile" },
-        ]
+          { icon: "person", title: "Profile", link: "/profile" }
+        ];
       }
-      return menuItems
+      return menuItems;
     },
-    userSignedIn () {
-      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    userSignedIn() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
     }
-  },
+  }
 };
 </script>

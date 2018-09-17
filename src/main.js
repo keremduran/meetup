@@ -8,6 +8,7 @@ import Vuetify from 'vuetify'
 import { store } from './store'
 import DateFilter from './filters/date'
 import 'vuetify/dist/vuetify.min.css'
+import AlertCmp from './components/Shared/Alert.vue'
 
 Vue.use(Vuetify, {
   theme: {
@@ -16,6 +17,7 @@ Vue.use(Vuetify, {
   }
 })
 Vue.filter('datify', DateFilter)
+Vue.component('app-alert', AlertCmp)
 
 Vue.config.productionTip = false
 
@@ -35,5 +37,6 @@ new Vue({
         storageBucket: 'meetup-eb8b8.appspot.com'
       }
     )
+    this.$store.dispatch('loadMeetups')
   }
 })

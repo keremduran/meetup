@@ -2,16 +2,16 @@
     <v-container>
         <v-layout row wrap>
             <v-flex xs12>
-                <v-card class="primary">
+                <v-card class="secondary">
                     <v-card-title>
-                        <h2 class="primary--text">{{ meetup.title }}</h2>
+                        <h2>{{ meetup.title }}</h2>
                     </v-card-title>
                     <v-img
                         :src="meetup.imageUrl"
                         aspect-ratio="1.8" 
                     ></v-img>
                     <v-card-text>
-                        <div class="mb-1"> <h3 class="info--text"> {{ meetup.date | datify }} - {{meetup.location}}</h3> </div>
+                        <div class="mb-1"> <h3> {{ meetup.date | datify }} - {{meetup.location}}</h3> </div>
                         <div>{{ meetup.description }}</div>
                     </v-card-text>
                     <v-card-actions>
