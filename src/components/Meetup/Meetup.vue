@@ -66,8 +66,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>         
                         <app-meetup-register-dialog
-                            :meetupId="meetup.id"
-                            @registerStatusChanged="userIsRegistered=$event" >
+                            :meetupId="meetup.id">
                         </app-meetup-register-dialog>
                     </v-card-actions>
                 </v-card>
@@ -82,7 +81,6 @@ export default {
     data () {
         return {
             editButtonsActive: false,
-            userIsRegistered: null
         }
     },
     computed: {
@@ -101,6 +99,11 @@ export default {
         loading () {
             return this.$store.getters.loading
         },
+        userIsRegistered () {
+            return this.$store.getters.user.registeredMeetups.findIndex(meetupId => {
+               return meetupId === this.id
+            }) >= 0
+        }
     },
     methods: {
         editToggle () {
