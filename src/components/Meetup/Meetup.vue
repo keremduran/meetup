@@ -23,7 +23,8 @@
                 <v-card class="secondary">
                     <v-card-title class="pa-2 pl-4 py-3">  
                         <h2>{{ meetup.title }}</h2>                      
-                        <v-icon v-if="userIsRegistered" class="ml-2 green--text"  dark right>check_circle</v-icon>
+                        <v-icon large v-if="userIsRegistered" class="mx-2 green--text" dark right>how_to_reg</v-icon>
+                        <v-icon large v-if="userIsCreator" class="mx-2 green--text">supervisor_account</v-icon>
                         <template v-if="userIsCreator && editButtonsActive">  
                             <app-edit-meetup-details-dialog
                                 :meetup="meetup"
@@ -57,7 +58,11 @@
                                     :meetup="meetup"
                                     v-if="userIsCreator && editButtonsActive">
                                 </app-edit-meetup-time-dialog>
-                                <!-- Edit Location and Edit Image to be added -->
+                                <app-edit-meetup-location-dialog
+                                    :meetup="meetup"
+                                    v-if="userIsCreator && editButtonsActive">
+                                </app-edit-meetup-location-dialog>
+                                <!-- Edit Image to be added -->
                             </div>                            
                         </div>
                         <v-divider class="my-3"></v-divider>
@@ -66,8 +71,17 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>         
                         <app-meetup-register-dialog
-                            :meetupId="meetup.id">
+                            :meetupId="meetup.id"
+                            v-if="userIsAuthenticated && !userIsCreator">
                         </app-meetup-register-dialog>
+                        <v-btn
+                            class="red ma-0 caption"
+                            dark
+                            v-if="userIsCreator"
+                            slot="activator"
+                            @click="log('Uh... Delete Meetup Dialog!')">
+                            Delete Meetup
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>

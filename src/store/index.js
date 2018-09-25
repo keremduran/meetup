@@ -54,6 +54,9 @@ export const store = new Vuex.Store({
             if (payload.date) {
                 meetup.date = payload.date
             }
+            if (payload.location) {
+                meetup.location = payload.location
+            }
         },
         clearError (state) {
             state.error = null
@@ -254,9 +257,12 @@ export const store = new Vuex.Store({
             if (payload.date) {
                 updatedObj.date = payload.date
             }
+            if (payload.location) {
+                updatedObj.location = payload.location
+            }   
             if (payload.id) {
                 updatedObj.id = payload.id
-            }
+            }        
             firebase.database().ref('meetups').child(payload.id).update(updatedObj)
                 .then(() => {
                     commit('setLoading', false)
