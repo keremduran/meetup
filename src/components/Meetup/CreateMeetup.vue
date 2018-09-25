@@ -30,11 +30,31 @@
             <v-layout row>
                 <v-flex xs12 sm6 offset-sm3>
                         <v-text-field
-                            v-model="imageUrl"
-                            label="Image URL"
+                            v-model="description"                       
+                            :counter="100"
+                            label="Description"
+                            multi-line
+                            :rows="1"
                             required
                         >
                         </v-text-field>
+                </v-flex>
+            </v-layout>
+            <v-layout row class="mb-4">
+                <v-flex xs12 sm6 offset-sm3>
+                    <v-btn
+                        class="primary caption lowercase"
+                        @click="onPickImage"                     
+                        >
+                        Upload Image
+                        <v-icon right dark>cloud_upload</v-icon>
+                    </v-btn>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        style="display:none"
+                        ref="pickImage"
+                        @change="onImagePicked">
                 </v-flex>
             </v-layout>
             <v-layout row>
@@ -42,19 +62,6 @@
                     <v-img
                     :src="imageUrl"
                     ></v-img>
-                </v-flex>
-            </v-layout>
-            <v-layout row>
-                <v-flex xs12 sm6 offset-sm3>
-                        <v-text-field
-                            v-model="description"                       
-                            :counter="100"
-                            label="Description"
-                            multi-line
-                            :rows="4"
-                            required
-                        >
-                        </v-text-field>
                 </v-flex>
             </v-layout>
             <v-layout row>
@@ -132,7 +139,8 @@ export default {
             date: null,            
             time: new Date(),   
             menu: false,
-            menu2: false       
+            menu2: false,   
+            image: null
         }
     },
     computed: {
@@ -144,7 +152,6 @@ export default {
         },
         parsedDateTime () {       
             let date
-
             if (!this.date) {
                 date = new Date()
             } else {
@@ -161,9 +168,7 @@ export default {
                 date.setHours(this.time.getHours())                
                 date.setMinutes(this.time.getMinutes())
             }
-            
-            console.log(date);
-            return date;
+            return date
         },
         getDate() {
             let date, year
@@ -202,15 +207,39 @@ export default {
             if(!this.formIsValid){
                 return
             }
+            if (!this.image){
+                return
+            }
             const meetupData = {
                 title: this.title,
                 location: this.location,
-                imageUrl: this.imageUrl,
+                image: this.image,
                 description: this.description,
                 date: this.parsedDateTime
             }
             this.$store.dispatch('createMeetup', meetupData)            
             this.$router.push('/meetups')
+        },
+        onPickImage () {
+            this.$refs.pickImage.click()
+        },
+        onImagePicked (event) {
+            const files = event.target.files
+            let fileName = files[0].name
+            //let fileType = files[0]['type']+""
+            if (fileName.lastIndexOf('.') <= 0) {
+                return alert('The file you selected has no extension.\nPlease upload an image file with a valid extension.')
+            }
+            // else if (!fileType.includes('image')) {
+            //     console.log(fileType+" was uploaded");               
+            //     return alert('The file you selected was in ' + fileType + ' type.\nPlease upload an image file.')         
+            // }
+            const fileReader = new FileReader()
+            fileReader.addEventListener('load', () => {
+                this.imageUrl = fileReader.result
+            })
+            fileReader.readAsDataURL(files[0])
+            this.image = files[0]
         }
     }
 }

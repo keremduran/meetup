@@ -6,9 +6,8 @@
                 <v-carousel>
                     <v-carousel-item class="align-items-center">
                         <v-progress-circular
-                            indeterminate
-                            
-                            class="primary--text my-auto"
+                            indeterminate              
+                            class="primary--text"
                             :width="7"
                             :size="70"
                         >
