@@ -15,6 +15,8 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h2 class="mb-0">{{ meetup.title }}</h2>
+                                        <v-icon v-if="userIsRegistered(meetup)" class="mx-2 green--text" dark right>how_to_reg</v-icon>
+                                        <v-icon v-if="userIsCreator(meetup)" class="mx-2 green--text">edit</v-icon>                                        
                                         <div>{{ meetup.date | datify }} - {{ meetup.location }}</div>
                                     </div>
                                 </v-card-title>
@@ -38,7 +40,23 @@ export default {
     computed: {
         meetups () {
             return this.$store.getters.loadedMeetups
-        }
+        },
+        userIsAuthenticated () {
+            return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+        },        
+    },
+    methods: {
+        userIsCreator (meetup) {
+            if (!this.userIsAuthenticated){
+                return false
+            }
+            return this.$store.getters.user.id === meetup.creatorId
+        },
+        userIsRegistered (meetup) {
+            return this.$store.getters.user.registeredMeetups.findIndex(meetupId => {
+               return meetupId === meetup.id
+            }) >= 0
+        }     
     }
 }
 </script>
@@ -46,6 +64,10 @@ export default {
 <style scoped>
     .secondary {
         background: #d5f0ff !important;
+    }
+
+    h2 {
+        display: inline;
     }
 </style>
 
