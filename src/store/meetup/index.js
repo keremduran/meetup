@@ -82,7 +82,7 @@ export default {
                     fileData.ref.getDownloadURL()
                         .then(url => {
                             imageUrl = url
-                            console.log('File available at ', url)
+                            console.log('File available at ', imageUrl)
                             return firebase.database().ref('meetups').child(key).update({
                                 imageUrl: imageUrl
                             })

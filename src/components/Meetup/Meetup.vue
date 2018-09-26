@@ -23,8 +23,8 @@
                 <v-card class="secondary">
                     <v-card-title class="pa-2 pl-4 py-3">  
                         <h2>{{ meetup.title }}</h2>                      
-                        <v-icon large v-if="userIsRegistered" class="mx-2 green--text" dark right>how_to_reg</v-icon>
-                        <v-icon large v-if="userIsCreator" class="mx-2 green--text">supervisor_account</v-icon>
+                        <v-icon large v-if="userIsRegistered" class="mx-2 green--text darken-1" dark right>how_to_reg</v-icon>
+                        <v-icon large v-if="userIsCreator" class="mx-2 green--text">gavel</v-icon>
                         <template v-if="userIsCreator && editButtonsActive">  
                             <app-edit-meetup-details-dialog
                                 :meetup="meetup"

@@ -15,8 +15,8 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h2 class="mb-0">{{ meetup.title }}</h2>
-                                        <v-icon v-if="userIsRegistered(meetup)" class="mx-2 green--text" dark right>how_to_reg</v-icon>
-                                        <v-icon v-if="userIsCreator(meetup)" class="mx-2 green--text">edit</v-icon>                                        
+                                        <v-icon v-if="userIsRegistered(meetup)" class="mx-2 green--text">how_to_reg</v-icon>
+                                        <v-icon v-if="userIsCreator(meetup)" class="mx-2 green--text">gavel</v-icon>                                        
                                         <div>{{ meetup.date | datify }} - {{ meetup.location }}</div>
                                     </div>
                                 </v-card-title>
