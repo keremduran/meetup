@@ -7,12 +7,8 @@
                         <v-layout row>
                             <v-flex xs5 sm4>
                                 <v-img
-                                v-if="!loading"
+                                :loading="loading"
                                 :src="meetup.imageUrl"
-                                aspect-ratio="1.3"
-                                ></v-img>
-                                <v-img
-                                v-else
                                 aspect-ratio="1.3"
                                 ></v-img>
                             </v-flex>
@@ -20,8 +16,10 @@
                                 <v-card-title primary-title>
                                     <div>
                                         <h2 class="mb-0">{{ meetup.title }}</h2>
-                                        <v-icon v-if="userIsRegistered(meetup)" class="mx-2 green--text">how_to_reg</v-icon>
-                                        <v-icon v-if="userIsCreator(meetup)" class="mx-2 green--text">gavel</v-icon>                                        
+                                        <div v-if="userIsAuthenticated" style="display: inline">
+                                            <v-icon v-if="userIsRegistered(meetup)" class="mx-2 green--text">how_to_reg</v-icon>
+                                            <v-icon v-if="userIsCreator(meetup)" class="mx-2 green--text">gavel</v-icon> 
+                                        </div>                                       
                                         <div>{{ meetup.date | datify }} - {{ meetup.location }}</div>
                                     </div>
                                 </v-card-title>

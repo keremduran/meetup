@@ -50,7 +50,7 @@
         <v-btn 
           flat
           v-if="userSignedIn"
-          to="/"
+          to="/signin"
           @click="onLogout">
           <v-icon dark left >exit_to_app</v-icon>
           Logout
