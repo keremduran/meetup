@@ -89,13 +89,13 @@ export default {
                             })
                         })
                 })
-                .then(() => {  
+                .then(() => {                  
+                    commit('setLoading', false)
                     commit('createMeetup', {
                         ...meetup,
                         imageUrl: imageUrl,
                         id: key
                     })
-                    commit('setLoading', false)
                 })
                 .catch((error) => {       
                     commit('setLoading', false)

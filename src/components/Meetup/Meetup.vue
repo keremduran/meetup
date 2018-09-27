@@ -22,7 +22,7 @@
             <v-flex xs12>
                 <v-card class="secondary">
                     <v-card-title class="pa-2 pl-4 py-3">  
-                        <h2>{{ meetup.title }}</h2>                      
+                        <h2>{{ meetup.title }}</h2>                
                         <v-icon large v-if="userIsRegistered" class="mx-2 green--text darken-1" dark right>how_to_reg</v-icon>
                         <v-icon large v-if="userIsCreator" class="mx-2 green--text">gavel</v-icon>
                         <template v-if="userIsCreator && editButtonsActive">  
@@ -69,6 +69,7 @@
                         <div class="body-2">{{ meetup.description }}</div>
                     </v-card-text>
                     <v-card-actions>
+                        <!--<div class="body-2 mx-2" style="display: inline">  Created by: {{ creator.email }}</div>-->
                         <v-spacer></v-spacer>         
                         <app-meetup-register-dialog
                             :meetupId="meetup.id"

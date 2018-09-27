@@ -47,12 +47,14 @@
           <v-icon dark left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <router-link style='height: 100%' to="/">
-          <v-btn v-if="userSignedIn" flat @click="onLogout">
-            <v-icon dark left >exit_to_app</v-icon>
-            Logout
-          </v-btn>
-        </router-link>        
+        <v-btn 
+          flat
+          v-if="userSignedIn"
+          to="/"
+          @click="onLogout">
+          <v-icon dark left >exit_to_app</v-icon>
+          Logout
+        </v-btn>        
       </v-toolbar-items>
     </v-toolbar>
     <main>
