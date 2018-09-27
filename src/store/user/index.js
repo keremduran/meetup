@@ -68,6 +68,8 @@ export default {
                             id: user.user.uid,
                             registeredMeetups: [],
                             fbKeys: {},
+                            email: payload.email,
+                            password: payload.password
                         };                  
                         commit('setUser', newUser)
                     }
@@ -88,7 +90,9 @@ export default {
                         const newUser = {
                             id: user.user.uid,
                             registeredMeetups: [],
-                            fbKeys: {}
+                            fbKeys: {},
+                            email: payload.email,
+                            password: payload.password
                         }                     
                         commit('setUser', newUser)    
                     }                    
@@ -104,7 +108,9 @@ export default {
             commit('setUser', {
                 id: payload.uid,
                 registeredMeetups: [],
-                fbKeys: {}
+                fbKeys: {},
+                email: payload.email,
+                password: payload.password
             })
         },
         fetchUserData ({commit, getters}) {
@@ -121,7 +127,9 @@ export default {
                     const updatedUser = {
                         id: getters.user.id,
                         registeredMeetups: registeredMeetups,
-                        fbKeys: swappedPairs
+                        fbKeys: swappedPairs,
+                        email: getters.user.email,
+                        password: getters.user.password
                     }
                     commit('setLoading', false)
                     commit('setUser', updatedUser)

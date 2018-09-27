@@ -18,6 +18,9 @@ export default {
     actions: {
         clearError ({commit}) {
             commit('clearError')
+        },
+        setLoading ({commit}, payload) {
+            commit(setLoading, payload)
         }
     },
     getters: {

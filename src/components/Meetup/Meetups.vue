@@ -7,7 +7,12 @@
                         <v-layout row>
                             <v-flex xs5 sm4>
                                 <v-img
+                                v-if="!loading"
                                 :src="meetup.imageUrl"
+                                aspect-ratio="1.3"
+                                ></v-img>
+                                <v-img
+                                v-else
                                 aspect-ratio="1.3"
                                 ></v-img>
                             </v-flex>
@@ -43,7 +48,10 @@ export default {
         },
         userIsAuthenticated () {
             return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-        },        
+        },
+        loading () {
+            return this.$store.getters.loading
+        }       
     },
     methods: {
         userIsCreator (meetup) {
@@ -57,7 +65,7 @@ export default {
                return meetupId === meetup.id
             }) >= 0
         }     
-    }
+    },
 }
 </script>
 

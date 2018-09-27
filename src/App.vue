@@ -72,8 +72,16 @@ export default {
   computed: {
     menuItems() {
       let menuItems = [
-        { icon: "face", title: "Sign Up", link: "/signup" },
-        { icon: "lock_open", title: "Sign In", link: "/signin" }
+        { 
+          icon: "face", 
+          title: "Sign Up", 
+          link: "/signup" 
+        },
+        { 
+          icon: "lock_open", 
+          title: "Sign In", 
+          link: "/signin"
+        }
       ];
       if (this.userSignedIn) {
         menuItems = [
@@ -82,8 +90,16 @@ export default {
             title: "Explore Meetups",
             link: "/meetups"
           },
-          { icon: "room", title: "Organize Meetup", link: "/meetup/new" },
-          { icon: "person", title: "Profile", link: "/profile" }
+          {
+            icon: "room",
+            title: "Organize Meetup",
+            link: "/meetup/new"
+          },
+          {
+            icon: "person",
+            title: "Profile",
+            link: "/profile/"
+          },
         ];
       }
       return menuItems;

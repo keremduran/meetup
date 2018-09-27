@@ -59,6 +59,7 @@ export default {
                 )
         },
         createMeetup({ commit, getters }, payload) {
+            commit('setLoading', true)
             const meetup = {
                 title: payload.title,
                 location: payload.location,
@@ -88,14 +89,16 @@ export default {
                             })
                         })
                 })
-                .then(() => {
+                .then(() => {  
                     commit('createMeetup', {
                         ...meetup,
                         imageUrl: imageUrl,
                         id: key
                     })
+                    commit('setLoading', false)
                 })
-                .catch((error) => {
+                .catch((error) => {       
+                    commit('setLoading', false)
                     console.log(error)
                 })
         },

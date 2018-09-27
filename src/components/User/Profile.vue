@@ -1,11 +1,11 @@
 <template>
     <v-container fluid>
+        <!--User Info Area Below-->
         <v-layout row wrap>
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                <h2 class="primary--text">
-                    Your secret user ID: 
-                    <span class="secondary--text">{{user.id}}</span>
-                </h2>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2 class="text-xs-center" v-if="userIsAuthenticated" >
+                <h1 class="primary--text">
+                    Hello {{ user.email }}
+                </h1>
             </v-flex>
         </v-layout>
         <v-divider class="my-4"></v-divider>
@@ -42,8 +42,8 @@
                         </v-layout>
                     </v-container>
                 </v-card>
-                <v-layout v-if="false" row >
-                    <v-flex xs12 class="text-xs-center primary--text">
+                <v-layout v-if="userIsAuthenticated" row >
+                    <v-flex v-if="!createdMeetupExists" xs12 class="text-xs-center primary--text">
                         <p class="mt-3 subheading">
                             None here
                         </p>
@@ -90,8 +90,8 @@
                         </v-layout>
                     </v-container>
                 </v-card>
-                <v-layout v-if="false" row >
-                    <v-flex xs12 class="text-xs-center primary--text">
+                <v-layout v-if="userIsAuthenticated" row >
+                    <v-flex v-if="!registeredMeetupExists" xs12 class="text-xs-center primary--text">
                         <p class="mt-3 subheading">
                             If you had any :(
                         </p>
@@ -109,6 +109,11 @@
 
 <script>
 export default {
+    data () {
+        return {
+            password: "password"
+        }
+    },
     computed: {
         user () {
             return this.$store.getters.user
@@ -128,6 +133,14 @@ export default {
             }
             return true           
         },
+        createdMeetupExists () {
+            for (let meetup in this.meetups) {
+                if (this.userIsCreator(this.meetups[meetup])) {
+                    return true
+                }
+            }
+            return false
+        }
     },
     methods: {
         userIsCreator (meetup) {
@@ -137,6 +150,9 @@ export default {
             return this.user.id === meetup.creatorId
         },
         userIsRegistered (meetup) {
+            if (!this.userIsAuthenticated){
+                return false
+            }
             return this.registeredMeetups.findIndex(meetupId => {
                 return meetupId === meetup.id
             }) >= 0
@@ -144,7 +160,7 @@ export default {
         log (item) {
             console.log(item);   
         }   
-    }
+    },
 }
 </script>
 
