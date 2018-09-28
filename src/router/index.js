@@ -12,6 +12,7 @@ import AuthGuard from './auth-guard'
 Vue.use(Router)
 
 export default new Router({
+  base: '/vmeetup',
   routes: [
     {
       path: '/',
@@ -39,7 +40,6 @@ export default new Router({
     {
       path: '/profile',
       name: 'Profile',
-      props: true,
       component: Profile
     },
     {
