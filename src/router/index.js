@@ -15,7 +15,7 @@ export default new Router({
   base: '/vmeetup',
   routes: [
     {
-      path: '/',
+      path: '',
       name: 'Home',
       component: Home
     },
