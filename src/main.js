@@ -5,7 +5,9 @@ import App from './App'
 import * as firebase from 'firebase'
 import router from './router'
 import Vuetify from 'vuetify'
-import { store } from './store'
+import {
+    store
+} from './store'
 import DateFilter from './filters/date'
 import 'vuetify/dist/vuetify.min.css'
 import AlertCmp from './components/Shared/Alert.vue'
@@ -16,10 +18,10 @@ import EditMeetupLocationDialog from './components/Meetup/Edit/EditMeetupLocatio
 import RegisterDialog from './components/Meetup/Registration/RegisterDialog.vue'
 
 Vue.use(Vuetify, {
-  theme: {
-    primary: '#1867c0',
-    secondary: '#d5f0ff'
-  }
+    theme: {
+        primary: '#1867c0',
+        secondary: '#d5f0ff'
+    }
 })
 Vue.filter('datify', DateFilter)
 Vue.component('app-alert', AlertCmp)
@@ -33,26 +35,27 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>',
-  created () {
-    firebase.initializeApp({
-        apiKey: 'AIzaSyBpwKK5_hX1M03qwZvv3yjSiGtW6dLEdFA',
-        authDomain: 'meetup-eb8b8.firebaseapp.com',
-        databaseURL: 'https://meetup-eb8b8.firebaseio.com',
-        projectId: 'meetup-eb8b8',
-        storageBucket: 'gs://meetup-eb8b8.appspot.com'
-      }
-    )
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user !== null){
-        this.$store.dispatch('autoSignIn', user)  
-        this.$store.dispatch('fetchUserData')
-      }
-    })
-    this.$store.dispatch('loadMeetups')
-  }
+    el: '#app',
+    router,
+    store,
+    components: {
+        App
+    },
+    template: '<App/>',
+    created() {
+        firebase.initializeApp({
+            apiKey: 'AIzaSyBpwKK5_hX1M03qwZvv3yjSiGtW6dLEdFA',
+            authDomain: 'meetup-eb8b8.firebaseapp.com',
+            databaseURL: 'https://meetup-eb8b8.firebaseio.com',
+            projectId: 'meetup-eb8b8',
+            storageBucket: 'gs://meetup-eb8b8.appspot.com'
+        })
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user !== null) {
+                this.$store.dispatch('autoSignIn', user)
+                this.$store.dispatch('fetchUserData')
+            }
+        })
+        this.$store.dispatch('loadMeetups')
+    }
 })
